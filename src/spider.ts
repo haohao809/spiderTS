@@ -1,23 +1,29 @@
 
 import superagent from 'superagent'
 import cheerio from 'cheerio'
+import fs from 'fs'
+import path from 'path'
 import WhCovid19Data from './WhCovid19Data';
 class Spider {
     private url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
     private data: string|undefined;
+    private filePath = path.resolve(__dirname,'../data/data.json')
     constructor () {
-        this.getHtml();
+        this.getHtmlContent();
         console.log('constructor');
     }
     async getHtml() {
        const res = await superagent.get(this.url)
-    //    console.log(res.text);
-       this.getHtmlContent(res.text);
+       return res.text;
     }
-    getHtmlContent(html :string) {
-
-        whCovid19Data.handleData(html);
-        
+    writeFile(content: string) {
+        fs.writeFileSync(this.filePath,content)
+    }
+    async getHtmlContent() {
+        const htmlContent = await this.getHtml();
+        console.log('htmlContent',htmlContent);
+        const fileContent = whCovid19Data.handleData(htmlContent);
+        this.writeFile(fileContent);
     }
 }
 
