@@ -1,6 +1,7 @@
 
 import superagent from 'superagent'
 import cheerio from 'cheerio'
+import WhCovid19Data from './WhCovid19Data';
 class Spider {
     private url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
     private data: string|undefined;
@@ -14,18 +15,11 @@ class Spider {
        this.getHtmlContent(res.text);
     }
     getHtmlContent(html :string) {
-        const $ = cheerio.load(html);
-        if($('script')[11].children[0].data) {
-            this.data = ($('script')[11].children[0].data);
-            if(this.data) {
-                const sumData = JSON.parse(this.data);
-                 if(sumData) {
-                     console.log(sumData.component[0].summaryDataIn);
-                 }
-             }
-        }
 
+        whCovid19Data.handleData(html);
         
     }
 }
+
 const spider = new Spider();
+const whCovid19Data = new WhCovid19Data();
