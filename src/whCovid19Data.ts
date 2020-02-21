@@ -1,5 +1,7 @@
 import superagent from 'superagent'
 import cheerio from 'cheerio'
+import fs from 'fs'
+import path from 'path'
 interface SummaryData {
     confirmed: string,
     die: string,
@@ -10,6 +12,7 @@ interface SummaryData {
 }
 export default class WhCovid19Data {
     private data: string|undefined;
+    private filePath = path.resolve(__dirname,'../data/data.json')
     construct(html:string) {
         // this.getHtmlContent(html);
     }
@@ -29,7 +32,11 @@ export default class WhCovid19Data {
         return ''
     }
     parseData(summaryData :SummaryData) : string{
-        const dataJson = {
+        let dataJson = {};
+        if(fs.existsSync(this.filePath)) {
+            dataJson = JSON.parse(fs.readFileSync(this.filePath,'utf-8'))
+        }
+        dataJson = {
             '累计确诊' : summaryData.confirmed,
             '死亡人数' : summaryData.die,
             '治愈人数' : summaryData.cured,
