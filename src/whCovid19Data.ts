@@ -35,16 +35,18 @@ export default class WhCovid19Data {
     }
     parseData(summaryData :SummaryData) : string{
         let dataJson = [];
-        const formatTime = this.formatDate(summaryData.relativeTime);
+        const curTime = this.formatDate(summaryData.relativeTime,'curtime');
+        const formatTime = this.formatDate(summaryData.relativeTime,'datatime');
         if(fs.existsSync(this.filePath)) {
             dataJson = JSON.parse(fs.readFileSync(this.filePath,'utf-8'))
         }       
-        dataJson[formatTime]= {
+        dataJson[curTime]= {
             '累计确诊' : summaryData.confirmed,
             '死亡人数' : summaryData.die,
             '治愈人数' : summaryData.cured,
             '当前确诊人数': summaryData.curConfirm,
             '疑似病例': summaryData.unconfirmed,
+            '日期': formatTime
 
         }
     
@@ -53,12 +55,27 @@ export default class WhCovid19Data {
     public handleData(html:string) : string{
        return this.getHtmlContent(html)
     }
-    public formatDate(time:string,format='YYYY-MM-DD'): string {
-        let date= new Date(parseInt(time) * 1000);
+    public formatDate(time:string, parm: string,format='YYYY-MM-DD HH:mm:ss'): string {
+        let date : Date;
+        if(parm == 'datatime') {
+            date = new Date(parseInt(time) * 1000); 
+        } else {
+            date = new Date(); 
+        }
         let obj: Obj = {
             YYYY: date.getFullYear(),
             MM: ('0' + (date.getMonth() + 1)).slice(-2),
             DD: ('0' + date.getDate()).slice(-2),
+            HH: ('0' + date.getHours()).slice(-2),
+            mm: ('0' + date.getMinutes()).slice(-2),
+            ss: ('0' + date.getSeconds()).slice(-2),
+            w: ['日', '一', '二', '三', '四', '五', '六'][date.getDay()],
+            YY: ('' + date.getFullYear()).slice(-2),
+            M: date.getMonth() + 1,
+            D: date.getDate(),
+            H: date.getHours(),
+            m: date.getMinutes(),
+            s: date.getSeconds()
         };
         Object.keys(obj).forEach((value : string )=> {
             format = format.replace(value, obj[value])
