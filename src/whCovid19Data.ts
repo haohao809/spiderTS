@@ -13,6 +13,9 @@ interface SummaryData {
 interface Obj {
     [propName:string]:any
 }
+interface DataJson {
+    [propName: string]: {}
+}
 export default class WhCovid19Data {
     private data: string|undefined;
     private filePath = path.resolve(__dirname,'../data/data.json')
@@ -34,8 +37,8 @@ export default class WhCovid19Data {
         return ''
     }
     parseData(summaryData :SummaryData) : string{
-        let dataJson = [];
-        const curTime = this.formatDate(summaryData.relativeTime,'curtime');
+        let dataJson: DataJson= {};
+        const curTime:string = this.formatDate(summaryData.relativeTime,'curtime');
         const formatTime = this.formatDate(summaryData.relativeTime,'datatime');
         if(fs.existsSync(this.filePath)) {
             dataJson = JSON.parse(fs.readFileSync(this.filePath,'utf-8'))
@@ -62,7 +65,7 @@ export default class WhCovid19Data {
         } else {
             date = new Date(); 
         }
-        let obj: Obj = {
+        let obj:Obj = {
             YYYY: date.getFullYear(),
             MM: ('0' + (date.getMonth() + 1)).slice(-2),
             DD: ('0' + date.getDate()).slice(-2),
