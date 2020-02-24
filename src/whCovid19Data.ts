@@ -41,7 +41,17 @@ export default class WhCovid19Data {
         const curTime:string = this.formatDate(summaryData.relativeTime,'curtime');
         const formatTime = this.formatDate(summaryData.relativeTime,'datatime');
         if(fs.existsSync(this.filePath)) {
-            dataJson = JSON.parse(fs.readFileSync(this.filePath,'utf-8'))
+            try {
+                let res = fs.readFileSync(this.filePath,'utf-8');
+                if(res) {
+                    dataJson = JSON.parse(res);
+                }
+                
+                console.log('dataJson',dataJson);
+            } catch (error) {
+                console.log('error',error)
+            }
+           
         }       
         dataJson[curTime]= {
             '累计确诊' : summaryData.confirmed,
