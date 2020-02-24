@@ -1,10 +1,9 @@
 
 import superagent from 'superagent'
-import cheerio from 'cheerio'
 import fs from 'fs'
 import path from 'path'
 import WhCovid19Data from './WhCovid19Data';
-const whCovid19Data = new WhCovid19Data();
+const whCovid19Data = WhCovid19Data.getInstance();
 class Spider {
     private data: string|undefined;
     private filePath = path.resolve(__dirname,'../data/data.json')

@@ -1,10 +1,9 @@
-import superagent from 'superagent'
 import cheerio from 'cheerio'
 import fs from 'fs'
 import path from 'path'
 interface SummaryData {
     confirmed: string,
-    die: string,
+        die: string,
     cured: string,
     curConfirm: string,
     unconfirmed: string,
@@ -20,6 +19,16 @@ export default class WhCovid19Data {
     private data: string|undefined;
     private url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
     private filePath = path.resolve(__dirname,'../data/data.json')
+
+    private static instance: WhCovid19Data
+    // 单例模式
+    static getInstance() {
+        if(!WhCovid19Data.instance) {
+            WhCovid19Data.instance = new WhCovid19Data()
+        }
+
+        return WhCovid19Data.instance
+    }
     construct(html:string) {
         // this.getHtmlContent(html);
     }
