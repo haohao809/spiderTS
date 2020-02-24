@@ -9,7 +9,6 @@ class Spider {
     private filePath = path.resolve(__dirname,'../data/data.json')
     constructor () {
         this.getHtmlContent();
-        console.log('constructor');
     }
     async getHtml() {
        const url = await whCovid19Data.getUrl();
@@ -28,3 +27,4 @@ class Spider {
 }
 
 const spider = new Spider();
+

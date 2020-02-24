@@ -103,7 +103,6 @@ export default class WhCovid19Data {
         Object.keys(obj).forEach((value : string )=> {
             format = format.replace(value, obj[value])
         })
-        console.log('format',format);
         return format
     }
     public getUrl() {

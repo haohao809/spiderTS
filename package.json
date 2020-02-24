@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node ./src/spider.ts"
+    "dev": "ts-node ./src/spider.ts",
+    "build": "tsc -w",
+    "start": "nodemon node ./build/spider.js"
+  },
+  "nodemonConfig": {
+    "ignore": ["data/*"]
   },
   "keywords": [],
   "author": "",
@@ -23,6 +28,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "nodemon": "^2.0.2",
     "superagent": "^5.2.2"
   }
 }
