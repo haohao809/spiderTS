@@ -18,6 +18,7 @@ interface DataJson {
 }
 export default class WhCovid19Data {
     private data: string|undefined;
+    private url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
     private filePath = path.resolve(__dirname,'../data/data.json')
     construct(html:string) {
         // this.getHtmlContent(html);
@@ -95,5 +96,8 @@ export default class WhCovid19Data {
         })
         console.log('format',format);
         return format
+    }
+    public getUrl() {
+        return this.url;
     }
 }
