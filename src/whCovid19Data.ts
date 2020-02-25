@@ -10,7 +10,7 @@ interface SummaryData {
     relativeTime: string
 }
 interface Obj {
-    [propName:string]:string
+    [propName: string]: any
 }
 interface DataJson {
     [propName: string]: {}
@@ -100,9 +100,9 @@ export default class WhCovid19Data {
             m: date.getMinutes(),
             s: date.getSeconds()
         };
-        Object.keys(obj).forEach((value : string )=> {
-            format = format.replace(value, obj[value]
-        })
+        Object.keys(obj).forEach((value : string)=> {
+            format = format.replace(value, obj[value])
+            })
         return format
     }
     public getUrl() {
