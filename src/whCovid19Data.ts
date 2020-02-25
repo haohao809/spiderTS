@@ -10,7 +10,7 @@ interface SummaryData {
     relativeTime: string
 }
 interface Obj {
-    [propName:string]:any
+    [propName:string]:string
 }
 interface DataJson {
     [propName: string]: {}
@@ -101,7 +101,7 @@ export default class WhCovid19Data {
             s: date.getSeconds()
         };
         Object.keys(obj).forEach((value : string )=> {
-            format = format.replace(value, obj[value])
+            format = format.replace(value, obj[value]
         })
         return format
     }
