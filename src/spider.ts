@@ -5,7 +5,6 @@ import path from 'path'
 import WhCovid19Data from './WhCovid19Data';
 const whCovid19Data = WhCovid19Data.getInstance();
 class Spider {
-    private data: string|undefined;
     private filePath = path.resolve(__dirname,'../data/data.json')
     constructor () {
         this.getHtmlContent();
@@ -20,7 +19,6 @@ class Spider {
     }
     async getHtmlContent() {
         const htmlContent = await this.getHtml();
-        console.log('htmlContent',htmlContent);
         const fileContent = whCovid19Data.handleData(htmlContent);
         this.writeFile(fileContent);
     }

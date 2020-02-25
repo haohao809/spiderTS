@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 interface SummaryData {
     confirmed: string,
-        die: string,
+        died: string,
     cured: string,
     curConfirm: string,
     unconfirmed: string,
@@ -65,7 +65,7 @@ export default class WhCovid19Data {
         }       
         dataJson[curTime]= {
             '累计确诊' : summaryData.confirmed,
-            '死亡人数' : summaryData.die,
+            '死亡人数' : summaryData.died,
             '治愈人数' : summaryData.cured,
             '当前确诊人数': summaryData.curConfirm,
             '疑似病例': summaryData.unconfirmed,
